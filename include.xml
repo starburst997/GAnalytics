@@ -5,10 +5,8 @@
 	
 	<!-- Use the following for an Android Java extension, not needed otherwise -->
 	
-	<dependency name="hyp-google-analytics" path="dependencies/hyp-google-analytics" if="android"/>
-	<dependency name="hypga" path="dependencies/android" if="android" />
-	
-	<android extension="org.haxe.extension.GA" />
+	<dependency name="ganalytics" path="dependencies/android" if="android" />
+	<android extension="org.haxe.extension.GAnalytics" />
 	
 	<dependency name="CFNetwork.framework" 				if="ios" />
 	<dependency name="CoreData.framework" 				if="ios" />

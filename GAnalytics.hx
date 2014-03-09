@@ -41,8 +41,13 @@ class GAnalytics {
 	
 		static public function startSession( sUA : String , iPeriod : Int ) : Void {
 			#if (android && openfl)
+			
+			ganalytics_startNewSession_jni(sUA, iPeriod);
+			
 			#elseif ios
-				ganalytics_startNewSession(sUA, iPeriod);
+			
+			ganalytics_startNewSession(sUA, iPeriod);
+			
 			#end
 		}
 
@@ -57,7 +62,9 @@ class GAnalytics {
 			#if (android && openfl)
 			
 			#elseif ios
-				ganalytics_stopSession();
+			
+			ganalytics_stopSession();
+			
 			#end
 		}
 		
@@ -72,8 +79,12 @@ class GAnalytics {
 		static public function trackScreen( sScreen : String ) : Void {
 			#if (android && openfl)
 			
+			ganalytics_trackScreen_jni(sScreen);
+			
 			#elseif ios
-				ganalytics_sendScreenView(sScreen);
+			
+			ganalytics_sendScreenView(sScreen);
+			
 			#end
 		}
 
@@ -91,6 +102,8 @@ class GAnalytics {
 		static public function trackEvent( sCat : String , sAction : String , sLabel : String , value : Int = 1 ) : Void {
 			#if (android && openfl)
 			
+			ganalytics_trackEvent_jni(sCat, sAction, sLabel, value);
+
 			#elseif ios
 				ganalytics_sendEvent(sCat, sAction, sLabel, value);
 			#end
@@ -109,9 +122,13 @@ class GAnalytics {
 
 		static public function sendTiming( sCat : String , iInterval : Int , sName : String , sLabel : String ) : Void {
 			#if (android && openfl)
+
+			ganalytics_sendTiming_jni(sCat, iInterval, sName, sLabel);
 			
 			#elseif ios
-				ganalytics_sendTiming(sCat, iInterval, sName, sLabel);
+			
+			ganalytics_sendTiming(sCat, iInterval, sName, sLabel);
+			
 			#end
 		}
 
@@ -145,7 +162,9 @@ class GAnalytics {
 			#if (android && openfl)
 			
 			#elseif ios
-				ganalytics_setCustom_metric(iIndex, iValue);
+			
+			ganalytics_setCustom_metric(iIndex, iValue);
+			
 			#end
 		}
 
@@ -158,28 +177,17 @@ class GAnalytics {
 		* @return	void
 		*/
 
-		static public function sendSocial( sSocial_network : String , sAction : String , sTarget : String ) : Void {
+		static public function trackSocial( sSocial_network : String , sAction : String , sTarget : String ) : Void {
 			#if (android && openfl)
+				
+			ganalytics_trackSocial_jni(sSocial_network, sAction, sTarget);
 			
 			#elseif ios
-				ganalytics_sendSocial(sSocial_network, sAction, sTarget);
+			
+			ganalytics_sendSocial(sSocial_network, sAction, sTarget);
+			
 			#end
 		}
-
-		#if android
-
-		/**
-		* Set the period delay between two dispatch
-		*
-		* @public
-		* @param 	i : Delay ( Int )
-		* @return	void
-		*/
-		
-		static public function setDispatch_period( i : Int ) : Void {
-		}
-
-		#end
 
 	// -------o protected
 
@@ -191,16 +199,7 @@ class GAnalytics {
 		
 		#if (android && openfl)
 		
-		var resultJNI = hypga_sample_method_jni(inputValue);
-		var resultNative = hypga_sample_method(inputValue);
-		
-		if (resultJNI != resultNative) {
-			
-			throw "Fuzzy math!";
-			
-		}
-		
-		return resultNative;
+		return ganalytics_sample_method_jni(inputValue);
 		
 		#else
 		
@@ -212,16 +211,35 @@ class GAnalytics {
 	
 	
 	private static var ganalytics_startNewSession = Lib.load ("ganalytics", "ganalytics_startNewSession", 2);
+	
 	private static var ganalytics_stopSession = Lib.load ("ganalytics", "ganalytics_stopSession", 0);
+	
 	private static var ganalytics_sendScreenView = Lib.load ("ganalytics", "ganalytics_sendScreenView", 1);
+	
 	private static var ganalytics_sendEvent = Lib.load ("ganalytics", "ganalytics_sendEvent", 4);
+	
 	private static var ganalytics_sendTiming = Lib.load ("ganalytics", "ganalytics_sendTiming", 4);
+	
 	private static var ganalytics_setCustom_dimension = Lib.load ("ganalytics", "ganalytics_setCustom_dimension", 2);
+	
 	private static var ganalytics_setCustom_metric = Lib.load ("ganalytics", "ganalytics_setCustom_metric", 2);
+	
 	private static var ganalytics_sendSocial = Lib.load ("ganalytics", "ganalytics_sendSocial", 3);
 	
 	#if (android && openfl)
+	
 	private static var ganalytics_sample_method_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "sampleMethod", "(I)I");
+	
+	private static var ganalytics_startNewSession_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "startSession", "(Ljava/lang/String;I)V");
+	
+	private static var ganalytics_trackScreen_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "trackScreen", "(Ljava/lang/String;)V");
+	
+	private static var ganalytics_trackEvent_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "trackEvent", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V");
+	
+	private static var ganalytics_sendTiming_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "sendTiming", "(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;)V");
+	
+	private static var ganalytics_trackSocial_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "trackSocial", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+	
 	#end
 	
 	

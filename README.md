@@ -4,7 +4,7 @@ A Google Analytics native extension for OpenFL
 -----------------------------
 
 This OpenFL native extension allows you to integrate Google Analytics ( v3.03 ) into your OpenFL application.
-The supported compilation targets are [iOS](https://developers.google.com/analytics/devguides/collection/ios/v3) & [Android](https://developers.google.com/analytics/devguides/collection/android/v2/) (Being Migrated by Emibap)
+The supported compilation targets are [iOS](https://developers.google.com/analytics/devguides/collection/ios/v3) & [Android](https://developers.google.com/analytics/devguides/collection/android/v3/)
 
 Installation
 ------------
@@ -40,13 +40,9 @@ Tracking an event :
 For more advance methods just take a look a the HypGA class.
 All the Google Analytics V2 methods are supported( timing, metric , social , dimension... )
 
-Made at Hyperfiction
+This project was Originally forked from HypGA by Hyperfiction
 --------------------
 [hyperfiction.fr](http://hyperfiction.fr)
-
-Developed by : 
-Johann Martinache 
-[@shoe_box](https://twitter.com/shoe_box)
 
 License
 -------

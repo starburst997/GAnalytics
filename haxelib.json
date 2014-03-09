@@ -1,7 +1,7 @@
 {
   "name": "ganalytics",
   "url": "http://github.com/emibap/GAnalytics",
-  "license": "MIT",
+  "license": "BSD",
   "tags": [],
   "description": "A Google Analytics native extension for OpenFL",
   "version": "1.0.0",
