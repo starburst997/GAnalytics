@@ -1,10 +1,10 @@
-HypGA
+GAnalytics
 =============================
-A Google Analytics native extension for NME
+A Google Analytics native extension for OpenFL
 -----------------------------
 
-This NME native extension allows you to integrate Google Analytics ( v2 Beta 4 ) into your NME application.
-The supported compilation targets are [iOS](https://developers.google.com/analytics/devguides/collection/ios/v2/) & [Android](https://developers.google.com/analytics/devguides/collection/android/v2/)
+This OpenFL native extension allows you to integrate Google Analytics ( v3.03 ) into your OpenFL application.
+The supported compilation targets are [iOS](https://developers.google.com/analytics/devguides/collection/ios/v3) & [Android](https://developers.google.com/analytics/devguides/collection/android/v2/) (Being Migrated by Emibap)
 
 Installation
 ------------

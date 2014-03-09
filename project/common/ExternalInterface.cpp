@@ -1,36 +1,35 @@
-
-
-#ifndef IPHONE
+#ifndef STATIC_LINK
 #define IMPLEMENT_API
 #endif
 
+#if defined(HX_WINDOWS) || defined(HX_MACOS) || defined(HX_LINUX)
+#define NEKO_COMPATIBLE
+#endif
+
+
 #include <hx/CFFI.h>
-#include "HypGA.h"
-#include <stdio.h>
+#include "Utils.h"
 
-using namespace hypga;
-extern "C"{
 
-	int HypGA_register_prims(){
-		printf("HypGA: register_prims()\n");
-		return 0;
-	}
-}
+using namespace ganalytics;
+
+
+
 #ifdef IPHONE
 
-	static value HypGA_startNewSession( value sUA_code , value iPeriod ){
+	static value ganalytics_startNewSession( value sUA_code , value iPeriod ){
 		startNewSession( val_string( sUA_code ) , val_int( iPeriod ) );
 		return alloc_null( );
 	}
-	DEFINE_PRIM( HypGA_startNewSession , 2 );
+	DEFINE_PRIM( ganalytics_startNewSession , 2 );
 
-	static value HypGA_sendView( value sPage ){
-		sendView( val_string( sPage ) );
+	static value ganalytics_sendScreenView( value sScreen ){
+		sendScreenView( val_string( sScreen ) );
 		return alloc_null( );
 	}
-	DEFINE_PRIM( HypGA_sendView , 1 );
+	DEFINE_PRIM( ganalytics_sendScreenView , 1 );
 
-	static value HypGA_sendEvent( value sCat , value sAction , value sLabel , value iValue ){
+	static value ganalytics_sendEvent( value sCat , value sAction , value sLabel , value iValue ){
 		sendEvent(
 					val_string( sCat ),
 					val_string( sAction ),
@@ -39,36 +38,47 @@ extern "C"{
 				);
 		return alloc_null( );
 	}
-	DEFINE_PRIM( HypGA_sendEvent , 4 );
+	DEFINE_PRIM( ganalytics_sendEvent , 4 );
 
-	static value HypGA_setCustom_dimension( value iIndex , value sValue ){
+	static value ganalytics_setCustom_dimension( value iIndex , value sValue ){
 		setCustom_dimension( val_int( iIndex ) , val_string( sValue ) );
 		return alloc_null( );
 	}
-	DEFINE_PRIM( HypGA_setCustom_dimension , 2 );
+	DEFINE_PRIM( ganalytics_setCustom_dimension , 2 );
 
-	static value HypGA_setCustom_metric( value iIndex , value iMetric ){
+	static value ganalytics_setCustom_metric( value iIndex , value iMetric ){
 		setCustom_metric( val_int( iIndex ) , val_int( iMetric ) );
 		return alloc_null( );
 	}
-	DEFINE_PRIM( HypGA_setCustom_metric , 2 );
+	DEFINE_PRIM( ganalytics_setCustom_metric , 2 );
 
-	static value HypGA_sendTiming( value sCat , value interval , value name , value label ){
+	static value ganalytics_sendTiming( value sCat , value interval , value name , value label ){
 		sendTiming( val_string( sCat ) , val_int( interval ) , val_string( name ) , val_string( label ) );
 		return alloc_null( );
 	}
-	DEFINE_PRIM( HypGA_sendTiming , 4 );
+	DEFINE_PRIM( ganalytics_sendTiming , 4 );
 
-	static value HypGA_stopSession( ){
+	static value ganalytics_stopSession( ){
 		stopSession( );
 		return alloc_null( );
 	}
-	DEFINE_PRIM( HypGA_stopSession , 0 );
+	DEFINE_PRIM( ganalytics_stopSession , 0 );
 
-	static value HypGA_sendSocial( value sNetwork , value sAction , value sTarget ){
+	static value ganalytics_sendSocial( value sNetwork , value sAction , value sTarget ){
 		sendSocial( val_string( sNetwork ) , val_string( sAction ) , val_string( sTarget ) );
 		return alloc_null( );
 	}
-	DEFINE_PRIM( HypGA_sendSocial , 3 );
+	DEFINE_PRIM( ganalytics_sendSocial , 3 );
 
 #endif
+
+
+extern "C" void ganalytics_main () {
+	
+	val_int(0); // Fix Neko init
+	
+}
+DEFINE_ENTRY_POINT (ganalytics_main);
+
+
+extern "C" int ganalytics_register_prims () { return 0; }
