@@ -8,40 +8,43 @@ The supported compilation targets are [iOS](https://developers.google.com/analyt
 
 Installation
 ------------
-There is an [include.nmml]() file and [ndll]() are compiled for:
-* ios armv6
-* ios armv7
-* ios simulator
-* android armv6
+You can install it directly from haxelib:
+	
+	haxelib install ganalytics
+
+
+If you didn't install this extension via haxelib and or to have the latest dev version you can download
+this sources and set its folder as the source using the following command:
+	
+	haxelib dev ganalytics path/to/your/downloaded/files
 
 Recompiling
 -----------
-For recompiling the native extensions just use the sh files contained in the project folder.
+	lime rebuild ganalytics ios
+	
+	or
+    lime rebuild ganalytics android
 
 Usage
 -----
-Just call the public methods on the HypGA class.
+Just call the public methods on the GAnalytics class.
 
-For iOS you need to link the Google Analytics class package to your XCode project.
-Just drag & drop on your project the HypGA folder. ( [your_export_folder]/ios/[ProjectName]/HypGA )
-
-Baisc reference
----------------
+**Baisc reference**
 
 First start the session via :
-<pre><code>HypGA.startSession( "YOUR-UA-CODE" );<code></pre>
+	GAnalytics.startSession( "YOUR-UA-CODE" );
 
-Tracking a page view :
-<pre><code>HypGA.trackPageView( "your-page-code");<code></pre>
+Tracking a screen view :
+	GAnalytics.trackScreen( "your-page-code" );
 
 Tracking an event :
-<pre><code>HypGA.trackEvent( "event-cat" , "event-action","event-label",1);<code></pre>
+	GAnalytics.trackEvent( "event-cat" , "event-action", "event-label", 1 );
 
-For more advance methods just take a look a the HypGA class.
-All the Google Analytics V2 methods are supported( timing, metric , social , dimension... )
+For more advance methods just take a look a the GAnalytics class.
+All the Google Analytics V3 methods are supported( timing, metric , social , dimension... )
 
-This project was Originally forked from HypGA by Hyperfiction
---------------------
+
+**This project was Originally forked from HypGA (Hyperfiction)**
 [hyperfiction.fr](http://hyperfiction.fr)
 
 License
