@@ -4,8 +4,8 @@
   "license": "BSD",
   "tags": [],
   "description": "A Google Analytics native extension for OpenFL",
-  "version": "1.0.0",
-  "releasenote": "",
+  "version": "0.0.1",
+  "releasenote": "Fork from hypGA and update API",
   "contributors": ["emibap"],
   "dependencies": {
 
