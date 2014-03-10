@@ -2,7 +2,7 @@
   "name": "ganalytics",
   "url": "http://github.com/emibap/GAnalytics",
   "license": "BSD",
-  "tags": [],
+  "tags": ["OpenFL","analytics","google"],
   "description": "A Google Analytics native extension for OpenFL",
   "version": "0.0.1",
   "releasenote": "Fork from hypGA and update API",
