@@ -39,7 +39,7 @@ class GAnalytics {
 		* @return	void
 		*/
 	
-		static public function startSession( sUA : String , iPeriod : Int ) : Void {
+		static public function startSession( sUA : String , iPeriod : Int = 15 ) : Void {
 			#if (android && openfl)
 			
 			ganalytics_startNewSession_jni(sUA, iPeriod);
