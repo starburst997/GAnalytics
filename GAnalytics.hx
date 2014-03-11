@@ -30,184 +30,180 @@ class GAnalytics {
 
 	// -------o public
 
-		/**
-		* Start the Ga tracking session
-		*
-		* @public
-		* @param sUA : GA UA code ( String )
-		* @param iPeriod ( Int )
-		* @return	void
-		*/
-	
-		static public function startSession( sUA : String , iPeriod : Int = 15 ) : Void {
-			#if (android && openfl)
-			
-			ganalytics_startNewSession_jni(sUA, iPeriod);
-			
-			#elseif ios
-			
-			ganalytics_startNewSession(sUA, iPeriod);
-			
-			#end
-		}
+	/**
+	* Start the Ga tracking session
+	*
+	* @public
+	* @param sUA : GA UA code ( String )
+	* @param iPeriod ( Int )
+	* @return	void
+	*/
 
-		/**
-		* Stop the GA tracking session
-		*
-		* @public
-		* @return	void
-		*/
-
-		static public function stopSession( ) : Void {
-			#if (android && openfl)
-			
-			#elseif ios
-			
-			ganalytics_stopSession();
-			
-			#end
-		}
+	static public function startSession( sUA : String , iPeriod : Int = 15 ) : Void {
+		#if (android && openfl)
 		
-		/**
-		* Track a screen view
-		*
-		* @public
-		* @param 	sScreen : Code of the screen to be tracked ( String )
-		* @return	void
-		*/
+		if (ganalytics_startNewSession_jni == null) ganalytics_startNewSession_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "startSession", "(Ljava/lang/String;I)V");
+		
+		ganalytics_startNewSession_jni(sUA, iPeriod);
+		
+		#elseif ios
+		
+		ganalytics_startNewSession(sUA, iPeriod);
+		
+		#end
+	}
+
+	/**
+	* Stop the GA tracking session
+	*
+	* @public
+	* @return	void
+	*/
+
+	static public function stopSession( ) : Void {
+		#if (android && openfl)
+		
+		#elseif ios
+		
+		ganalytics_stopSession();
+		
+		#end
+	}
 	
-		static public function trackScreen( sScreen : String ) : Void {
-			#if (android && openfl)
-			
-			ganalytics_trackScreen_jni(sScreen);
-			
-			#elseif ios
-			
-			ganalytics_sendScreenView(sScreen);
-			
-			#end
-		}
+	/**
+	* Track a screen view
+	*
+	* @public
+	* @param 	sScreen : Code of the screen to be tracked ( String )
+	* @return	void
+	*/
 
-		/**
-		* Track a event
-		*
-		* @public
-		* @param	sCat		: Event category 	( String )
-		* @param	sCat		: Action 			( String )
-		* @param	sLabel	: Event label 		( String )
-		* @param	value	: Event value 		( Int )
-		* @return	void
-		*/
+	static public function trackScreen( sScreen : String ) : Void {
+		#if (android && openfl)
+		
+		if (ganalytics_trackScreen_jni == null) ganalytics_trackScreen_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "trackScreen", "(Ljava/lang/String;)V");
+		
+		ganalytics_trackScreen_jni(sScreen);
+		
+		#elseif ios
+		
+		ganalytics_sendScreenView(sScreen);
+		
+		#end
+	}
 
-		static public function trackEvent( sCat : String , sAction : String , sLabel : String , value : Int = 1 ) : Void {
-			#if (android && openfl)
-			
-			ganalytics_trackEvent_jni(sCat, sAction, sLabel, value);
+	/**
+	* Track a event
+	*
+	* @public
+	* @param	sCat		: Event category 	( String )
+	* @param	sCat		: Action 			( String )
+	* @param	sLabel	: Event label 		( String )
+	* @param	value	: Event value 		( Int )
+	* @return	void
+	*/
 
-			#elseif ios
-				ganalytics_sendEvent(sCat, sAction, sLabel, value);
-			#end
-		}
+	static public function trackEvent( sCat : String , sAction : String , sLabel : String , value : Int = 1 ) : Void {
+		#if (android && openfl)
+		
+		if (ganalytics_trackEvent_jni == null) ganalytics_trackEvent_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "trackEvent", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V");
+		ganalytics_trackEvent_jni(sCat, sAction, sLabel, value);
 
-		/**
-		*
-		*
-		* @public
-		* @param	sCat		: Event category 	( String )
-		* @param	iInterval	: Timing interval 	( Int )
-		* @param	sName	: Timing name 		( String )
-		* @param	sLabel	: Label 			( String )
-		* @return	void
-		*/
+		#elseif ios
+			ganalytics_sendEvent(sCat, sAction, sLabel, value);
+		#end
+	}
 
-		static public function sendTiming( sCat : String , iInterval : Int , sName : String , sLabel : String ) : Void {
-			#if (android && openfl)
+	/**
+	*
+	*
+	* @public
+	* @param	sCat		: Event category 	( String )
+	* @param	iInterval	: Timing interval 	( Int )
+	* @param	sName	: Timing name 		( String )
+	* @param	sLabel	: Label 			( String )
+	* @return	void
+	*/
 
-			ganalytics_sendTiming_jni(sCat, iInterval, sName, sLabel);
-			
-			#elseif ios
-			
-			ganalytics_sendTiming(sCat, iInterval, sName, sLabel);
-			
-			#end
-		}
+	static public function sendTiming( sCat : String , iInterval : Int , sName : String , sLabel : String ) : Void {
+		#if (android && openfl)
 
-		/**
-		* Set a custom dimension value
-		*
-		* @public
-		* @param	iIndex : Index of the dimension 	( Int )
-		* @param	sValue : Dimension value 		( String )
-		* @return	void
-		*/
+		if (ganalytics_sendTiming_jni == null) ganalytics_sendTiming_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "sendTiming", "(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+		ganalytics_sendTiming_jni(sCat, iInterval, sName, sLabel);
+		
+		#elseif ios
+		
+		ganalytics_sendTiming(sCat, iInterval, sName, sLabel);
+		
+		#end
+	}
 
-		static public function setCustom_dimension( iIndex : Int , sValue : String ) : Void {
-			#if (android && openfl)
-			
-			#elseif ios
-				ganalytics_setCustom_dimension(iIndex, sValue);
-			#end
-		}
+	/**
+	* Set a custom dimension value
+	*
+	* @public
+	* @param	iIndex : Index of the dimension 	( Int )
+	* @param	sValue : Dimension value 		( String )
+	* @return	void
+	*/
 
-		/**
-		* Set a custom metric value
-		*
-		* @public
-		* @param	iIndex : Index of the metric 	( Int )
-		* @param	sValue : Metric value 		( String )
-		* @return	void
-		*/
+	static public function setCustom_dimension( iIndex : Int , sValue : String ) : Void {
+		#if (android && openfl)
+		
+		#elseif ios
+			ganalytics_setCustom_dimension(iIndex, sValue);
+		#end
+	}
 
-		static public function setCustom_metric( iIndex : Int , iValue : Int ) : Void {
-			#if (android && openfl)
-			
-			#elseif ios
-			
-			ganalytics_setCustom_metric(iIndex, iValue);
-			
-			#end
-		}
+	/**
+	* Set a custom metric value
+	*
+	* @public
+	* @param	iIndex : Index of the metric 	( Int )
+	* @param	sValue : Metric value 		( String )
+	* @return	void
+	*/
 
-		/**
-		* Track a social event
-		*
-		* @public
-		* @param 	sSocial_network :Targetted social network ( String )
-		* @param 	sAction : Action ( String )
-		* @return	void
-		*/
+	static public function setCustom_metric( iIndex : Int , iValue : Int ) : Void {
+		#if (android && openfl)
+		
+		#elseif ios
+		
+		ganalytics_setCustom_metric(iIndex, iValue);
+		
+		#end
+	}
 
-		static public function trackSocial( sSocial_network : String , sAction : String , sTarget : String ) : Void {
-			#if (android && openfl)
-				
-			ganalytics_trackSocial_jni(sSocial_network, sAction, sTarget);
+	/**
+	* Track a social event
+	*
+	* @public
+	* @param 	sSocial_network :Targetted social network ( String )
+	* @param 	sAction : Action ( String )
+	* @return	void
+	*/
+
+	static public function trackSocial( sSocial_network : String , sAction : String , sTarget : String ) : Void {
+		#if (android && openfl)
 			
-			#elseif ios
-			
-			ganalytics_sendSocial(sSocial_network, sAction, sTarget);
-			
-			#end
-		}
+		if (ganalytics_trackSocial_jni == null) ganalytics_trackSocial_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "trackSocial", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+		ganalytics_trackSocial_jni(sSocial_network, sAction, sTarget);
+		
+		#elseif ios
+		
+		ganalytics_sendSocial(sSocial_network, sAction, sTarget);
+		
+		#end
+	}
 
 	// -------o protected
 
 	// -------o misc
 	
 	
+	#if ios
 	
-	public static function sampleMethod (inputValue:Int):Int {
-		
-		#if (android && openfl)
-		
-		return ganalytics_sample_method_jni(inputValue);
-		
-		#else
-		
-		return 1;
-		
-		#end
-		
-	}
+	private static var ganalytics_sampleMethod = Lib.load ("ganalytics", "ganalytics_sampleMethod", 1);
 	
 	
 	private static var ganalytics_startNewSession = Lib.load ("ganalytics", "ganalytics_startNewSession", 2);
@@ -226,19 +222,19 @@ class GAnalytics {
 	
 	private static var ganalytics_sendSocial = Lib.load ("ganalytics", "ganalytics_sendSocial", 3);
 	
+	#end
+	
 	#if (android && openfl)
 	
-	private static var ganalytics_sample_method_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "sampleMethod", "(I)I");
+	private static var ganalytics_startNewSession_jni: Dynamic;
 	
-	private static var ganalytics_startNewSession_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "startSession", "(Ljava/lang/String;I)V");
+	private static var ganalytics_trackScreen_jni: Dynamic;
 	
-	private static var ganalytics_trackScreen_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "trackScreen", "(Ljava/lang/String;)V");
+	private static var ganalytics_trackEvent_jni: Dynamic;
 	
-	private static var ganalytics_trackEvent_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "trackEvent", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V");
+	private static var ganalytics_sendTiming_jni: Dynamic;
 	
-	private static var ganalytics_sendTiming_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "sendTiming", "(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;)V");
-	
-	private static var ganalytics_trackSocial_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "trackSocial", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+	private static var ganalytics_trackSocial_jni: Dynamic;
 	
 	#end
 	

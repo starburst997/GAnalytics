@@ -72,7 +72,7 @@ public class GAnalytics extends Extension {
 		* @public
 		* @return	void
 		*/
-		static public void setDry_run( boolean b ){
+		public static void setDry_run( boolean b ){
 			GoogleAnalytics.getInstance( mainContext ).setDryRun( b );
 		}
 
@@ -82,7 +82,7 @@ public class GAnalytics extends Extension {
 		* @public
 		* @return	void
 		*/
-		static public void setOpt_out( boolean b ){
+		public static void setOpt_out( boolean b ){
 			GoogleAnalytics.getInstance( mainContext ).setAppOptOut( b );
 		}
 
@@ -93,7 +93,7 @@ public class GAnalytics extends Extension {
 		* @public
 		* @return	void
 		*/
-		static public void startSession( String sUA_code , int iPeriod ) {
+		public static void startSession( String sUA_code , int iPeriod ) {
 			//trace("startSession ::: "+sUA_code+" - "+iPeriod);
 			_gaTracker = GoogleAnalytics.getInstance( mainContext ).getTracker( sUA_code );
 			setDispatch_period( iPeriod );
@@ -105,7 +105,7 @@ public class GAnalytics extends Extension {
 		* @public
 		* @return	void
 		*/
-		static public void setDispatch_period( int iPeriod ) {
+		public static void setDispatch_period( int iPeriod ) {
 			GAServiceManager.getInstance().setLocalDispatchPeriod(iPeriod);
 		}
 
@@ -115,7 +115,7 @@ public class GAnalytics extends Extension {
 		* @public
 		* @return	void
 		*/
-		static public void dispatch( ){
+		public static void dispatch( ){
 			GAServiceManager.getInstance().dispatchLocalHits( );
 		}
 
@@ -125,7 +125,7 @@ public class GAnalytics extends Extension {
 		* @public
 		* @return	void
 		*/
-		static public void trackScreen( String sScreen ){
+		public static void trackScreen( String sScreen ){
 			//trace("trackScreen ::: "+sScreen);
 			_gaTracker.send( MapBuilder.createAppView( ).set( Fields.SCREEN_NAME , sScreen ).build( ) );
 
@@ -137,7 +137,7 @@ public class GAnalytics extends Extension {
 		* @public
 		* @return	void
 		*/
-		static public void trackEvent( String sCat , String sAction , String sLabel , int iVal ){
+		public static void trackEvent( String sCat , String sAction , String sLabel , int iVal ){
 			_gaTracker.send( MapBuilder.createEvent( sCat , sAction , sLabel , Long.valueOf( iVal ) ).build( ) );
 		}
 
@@ -147,7 +147,7 @@ public class GAnalytics extends Extension {
 		* @public
 		* @return	void
 		*/
-		static public void trackSocial( String sSocial_network , String sAction , String sTarget ){
+		public static void trackSocial( String sSocial_network , String sAction , String sTarget ){
 			_gaTracker.send( MapBuilder.createSocial( sSocial_network , sAction , sTarget ).build( ) );
 		}
 
@@ -157,7 +157,7 @@ public class GAnalytics extends Extension {
 		* @public
 		* @return	void
 		*/
-		static public void sendTiming( String sCat , int iInterval , String sName , String sLabel ){
+		public static void sendTiming( String sCat , int iInterval , String sName , String sLabel ){
 			_gaTracker.send( MapBuilder.createTiming( sCat , Long.valueOf( iInterval ) , sName , sLabel ).build( ) );
 		}
 
