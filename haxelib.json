@@ -4,8 +4,8 @@
   "license": "BSD",
   "tags": ["OpenFL","analytics","google"],
   "description": "A Google Analytics native extension for OpenFL",
-  "version": "0.0.2",
-  "releasenote": "JNI Fix",
+  "version": "0.0.3",
+  "releasenote": "remove unused sample method",
   "contributors": ["emibap"],
   "dependencies": {
 
