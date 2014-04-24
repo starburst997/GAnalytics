@@ -203,9 +203,6 @@ class GAnalytics {
 	
 	#if ios
 	
-	private static var ganalytics_sampleMethod = Lib.load ("ganalytics", "ganalytics_sampleMethod", 1);
-	
-	
 	private static var ganalytics_startNewSession = Lib.load ("ganalytics", "ganalytics_startNewSession", 2);
 	
 	private static var ganalytics_stopSession = Lib.load ("ganalytics", "ganalytics_stopSession", 0);
