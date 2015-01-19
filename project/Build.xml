@@ -34,8 +34,7 @@
 	<set name="SLIBEXT" value=".a" unless="windows"/>
 	<set name="SLIBEXT" value=".so" if="webos"/> -->
 	
-	<target id="NDLL" output="${name_prefix}ganalytics${debug_extra}${name_extra}" tool="linker" toolid="${ndll-tool}">
-		
+	<target id="NDLL" output="${LIBPREFIX}ganalytics${debug_extra}${LIBEXTRA}" tool="linker" toolid="${STD_MODULE_LINK}">
 		<outdir name="../ndll/${BINDIR}"/>
 		<ext value=".ndll" unless="mobile"/>
 		<files id="common"/>
