@@ -29,7 +29,7 @@ Usage
 -----
 Just call the public methods on the GAnalytics class.
 
-**Baisc reference**
+**Basic reference**
 
 First start the session via :
 	GAnalytics.startSession( "YOUR-UA-CODE" );
