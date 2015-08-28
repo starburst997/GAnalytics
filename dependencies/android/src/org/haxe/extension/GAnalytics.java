@@ -1,16 +1,9 @@
 package org.haxe.extension;
 
 
-import com.google.analytics.tracking.android.EasyTracker;
-import com.google.analytics.tracking.android.Fields;
-import com.google.analytics.tracking.android.GAServiceManager;
-import com.google.analytics.tracking.android.GoogleAnalytics;
-import com.google.analytics.tracking.android.Logger.LogLevel;
-import com.google.analytics.tracking.android.Logger;
-import com.google.analytics.tracking.android.MapBuilder;
-import com.google.analytics.tracking.android.Tracker;
+import com.google.android.gms.analytics.*;
 
-
+import android.util.Log;
 import android.app.Activity;
 import android.content.res.AssetManager;
 import android.content.Context;
@@ -95,7 +88,9 @@ public class GAnalytics extends Extension {
 		*/
 		public static void startSession( String sUA_code , int iPeriod ) {
 			//trace("startSession ::: "+sUA_code+" - "+iPeriod);
-			_gaTracker = GoogleAnalytics.getInstance( mainContext ).getTracker( sUA_code );
+			//_gaTracker = GoogleAnalytics.getInstance( mainContext ).getTracker( sUA_code );
+			_gaTracker = GoogleAnalytics.getInstance( mainContext ).newTracker( sUA_code );
+			
 			setDispatch_period( iPeriod );
 		}
 
@@ -106,7 +101,7 @@ public class GAnalytics extends Extension {
 		* @return	void
 		*/
 		public static void setDispatch_period( int iPeriod ) {
-			GAServiceManager.getInstance().setLocalDispatchPeriod(iPeriod);
+			GoogleAnalytics.getInstance( mainContext ).setLocalDispatchPeriod(iPeriod);
 		}
 
 		/**
@@ -116,7 +111,7 @@ public class GAnalytics extends Extension {
 		* @return	void
 		*/
 		public static void dispatch( ){
-			GAServiceManager.getInstance().dispatchLocalHits( );
+			GoogleAnalytics.getInstance( mainContext ).dispatchLocalHits( );
 		}
 
 		/**
@@ -127,7 +122,12 @@ public class GAnalytics extends Extension {
 		*/
 		public static void trackScreen( String sScreen ){
 			//trace("trackScreen ::: "+sScreen);
-			_gaTracker.send( MapBuilder.createAppView( ).set( Fields.SCREEN_NAME , sScreen ).build( ) );
+			//_gaTracker.send( MapBuilder.createAppView( ).set( Fields.SCREEN_NAME , sScreen ).build( ) );
+			
+			Log.d("GoogleAnalytic","Track screen: " + sScreen);
+			
+			_gaTracker.setScreenName( sScreen );
+			_gaTracker.send( new HitBuilders.ScreenViewBuilder().build() );
 
 		}
 
@@ -138,7 +138,15 @@ public class GAnalytics extends Extension {
 		* @return	void
 		*/
 		public static void trackEvent( String sCat , String sAction , String sLabel , int iVal ){
-			_gaTracker.send( MapBuilder.createEvent( sCat , sAction , sLabel , Long.valueOf( iVal ) ).build( ) );
+			//_gaTracker.send( MapBuilder.createEvent( sCat , sAction , sLabel , Long.valueOf( iVal ) ).build( ) );
+			
+			Log.d("GoogleAnalytic","Track event: " + sCat + " : " + sAction + " : " + sLabel);
+			
+			_gaTracker.send( new HitBuilders.EventBuilder()
+            .setCategory(sCat)
+            .setAction(sAction)
+            .setLabel(sLabel)
+            .build() );
 		}
 
 		/**
@@ -148,7 +156,13 @@ public class GAnalytics extends Extension {
 		* @return	void
 		*/
 		public static void trackSocial( String sSocial_network , String sAction , String sTarget ){
-			_gaTracker.send( MapBuilder.createSocial( sSocial_network , sAction , sTarget ).build( ) );
+			//_gaTracker.send( MapBuilder.createSocial( sSocial_network , sAction , sTarget ).build( ) );
+			
+			_gaTracker.send( new HitBuilders.SocialBuilder()
+            .setNetwork(sSocial_network)
+            .setAction(sAction)
+            .setTarget(sTarget)
+            .build() );
 		}
 
 		/**
@@ -158,7 +172,23 @@ public class GAnalytics extends Extension {
 		* @return	void
 		*/
 		public static void sendTiming( String sCat , int iInterval , String sName , String sLabel ){
-			_gaTracker.send( MapBuilder.createTiming( sCat , Long.valueOf( iInterval ) , sName , sLabel ).build( ) );
+			//_gaTracker.send( MapBuilder.createTiming( sCat , Long.valueOf( iInterval ) , sName , sLabel ).build( ) );
+			
+			_gaTracker.send( new HitBuilders.TimingBuilder()
+            .setCategory(sCat)
+            .setValue(iInterval)
+            .setVariable(sName)
+            .setLabel(sLabel)
+            .build() );
+		}
+
+		public static void sendUncaughtException(String description, boolean fatal) {
+			//_gaTracker.send(MapBuilder.createException(description, (Boolean)fatal).build());
+			
+			_gaTracker.send( new HitBuilders.ExceptionBuilder()
+            .setDescription(description)
+            .setFatal(fatal)
+            .build() );
 		}
 
 	// -------o protected
@@ -225,7 +255,7 @@ public class GAnalytics extends Extension {
 	 */
 	public void onRestart () {
 		
-		EasyTracker.getInstance( mainContext ).activityStop( mainActivity );
+		GoogleAnalytics.getInstance( mainContext ).reportActivityStop( mainActivity );
 		
 	}
 	
@@ -248,8 +278,8 @@ public class GAnalytics extends Extension {
 	 */
 	public void onStart () {
 		
-		EasyTracker.getInstance( mainContext ).activityStart( mainActivity );
-		GoogleAnalytics.getInstance( mainContext ).getLogger( ).setLogLevel( LogLevel.VERBOSE );
+		GoogleAnalytics.getInstance( mainContext ).reportActivityStart( mainActivity );
+		GoogleAnalytics.getInstance( mainContext ).getLogger( ).setLogLevel( Logger.LogLevel.VERBOSE );
 		
 	}
 	

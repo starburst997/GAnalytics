@@ -3,6 +3,8 @@
 	
 	<ndll name="ganalytics" />
 	
+	<haxelib name="openfl-gps-lib" if="android" /> 
+	
 	<!-- Use the following for an Android Java extension, not needed otherwise -->
 	
 	<dependency name="ganalytics" path="dependencies/android" if="android" />
