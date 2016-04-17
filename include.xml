@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	
-	<ndll name="ganalytics" />
+	<ndll name="ganalytics" if="ios" />
 	
-	<haxelib name="openfl-gps-lib" if="android" /> 
+	<haxelib name="extension-googleplayservices-lib" if="android" /> 
 	
 	<!-- Use the following for an Android Java extension, not needed otherwise -->
 	
