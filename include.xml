@@ -2,8 +2,11 @@
 <project>
 	
 	<ndll name="ganalytics" if="ios" />
-	
-	<haxelib name="extension-googleplayservices-lib" if="android" /> 
+
+	<set name="google-play-services-basement" />
+	<set name="google-play-services-analytics-impl" />
+
+	<haxelib name="extension-googleplayservices-basement" if="android" /> 
 	
 	<!-- Use the following for an Android Java extension, not needed otherwise -->
 	
