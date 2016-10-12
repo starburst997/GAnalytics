@@ -18,6 +18,11 @@ this sources and set its folder as the source using the following command:
 	
 	haxelib dev ganalytics path/to/your/downloaded/files
 
+Android Libraries
+-----------------
+
+Since the recent Android SDK update, this library depends on `extension-googleplayservices-basement`. By default the dependent package does not include the Analytics Library, so make sure to add the package `google-play-services-analytics-impl` by running `select_dependencies.sh` in that extension, and selecting the `google-play-services-analytics-impl` package.
+
 Recompiling
 -----------
 	lime rebuild ganalytics ios

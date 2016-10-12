@@ -29,6 +29,12 @@ using namespace ganalytics;
 	}
 	DEFINE_PRIM( ganalytics_sendScreenView , 1 );
 
+	static value ganalytics_setUserId( value sUserId ){
+		setUserId( val_string( sUserId ) );
+		return alloc_null( );
+	}
+	DEFINE_PRIM( ganalytics_setUserId , 1 );
+
 	static value ganalytics_sendEvent( value sCat , value sAction , value sLabel , value iValue ){
 		sendEvent(
 					val_string( sCat ),

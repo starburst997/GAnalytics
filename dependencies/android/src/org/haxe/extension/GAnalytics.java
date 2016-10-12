@@ -110,6 +110,17 @@ public class GAnalytics extends Extension {
 		* @public
 		* @return	void
 		*/
+		public static void setUserId( String userId ) {
+			_gaTracker.set("&uid", userId);
+		}
+
+
+		/**
+		*
+		*
+		* @public
+		* @return	void
+		*/
 		public static void dispatch( ){
 			GoogleAnalytics.getInstance( mainContext ).dispatchLocalHits( );
 		}

@@ -27,6 +27,12 @@ namespace ganalytics {
 		[tracker send:[[GAIDictionaryBuilder createAppView]  build]];
 	}
 
+	void setUserId(  const char *sUserId ) {
+		NSString *NSUserId = [[NSString alloc] initWithUTF8String:sUserId];
+		// Set the user id on the tracker so that it is used in all hits sent from this screen.
+		[tracker set:kGAIUserId value:NSUserId];
+	}
+
 	void sendEvent( const char *sCat , const char *sAction , const char *sLabel , int iValue ){
 		NSString *NS_Cat = [ [NSString alloc] initWithUTF8String:sCat];
 		NSString *NS_Act = [ [NSString alloc] initWithUTF8String:sAction];

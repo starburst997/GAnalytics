@@ -69,7 +69,31 @@ class GAnalytics {
 		
 		#end
 	}
-	
+
+	/**
+	* Set the userID of a user
+	*  https://developers.google.com/analytics/devguides/collection/android/v4/user-id
+	*  https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#uid
+	*
+	* @public
+	* @param sUserId : User Id ( String )
+	* @return	void
+	*/
+
+	static public function setUserId( sUserId : String ) : Void {
+		#if (android && openfl)
+
+		if (ganalytics_setUserId_jni == null) ganalytics_setUserId_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "setUserId", "(Ljava/lang/String;)V");
+
+		ganalytics_setUserId_jni(setUserId);
+
+		#elseif ios
+
+		ganalytics_setUserId(setUserId);
+
+		#end
+	}
+
 	/**
 	* Track a screen view
 	*
@@ -218,6 +242,8 @@ class GAnalytics {
 	private static var ganalytics_setCustom_metric = Lib.load ("ganalytics", "ganalytics_setCustom_metric", 2);
 	
 	private static var ganalytics_sendSocial = Lib.load ("ganalytics", "ganalytics_sendSocial", 3);
+
+	private static var ganalytics_setUserId = Lib.load ("ganalytics", "ganalytics_setUserId", 1);
 	
 	#end
 	
@@ -232,6 +258,8 @@ class GAnalytics {
 	private static var ganalytics_sendTiming_jni: Dynamic;
 	
 	private static var ganalytics_trackSocial_jni: Dynamic;
+
+	private static var ganalytics_setUserId_jni: Dynamic;
 	
 	#end
 	
