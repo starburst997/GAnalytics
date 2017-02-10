@@ -8,6 +8,7 @@
   "releasenote": "remove unused sample method",
   "contributors": ["emibap"],
   "dependencies": {
-     "extension-googleplayservices-basement": ""
+     "extension-googleplayservices-basement": "",
+     "google-play-services": ""
   }
 }
