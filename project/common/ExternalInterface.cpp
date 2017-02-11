@@ -76,6 +76,12 @@ using namespace ganalytics;
 	}
 	DEFINE_PRIM( ganalytics_sendSocial , 3 );
 
+	static value ganalytics_sendUncaughtException( value description , value fatal ){
+		sendUncaughtException( val_string( description ) , val_bool( fatal ) );
+		return alloc_null( );
+	}
+	DEFINE_PRIM( ganalytics_sendUncaughtException , 3 );
+
 #endif
 
 

@@ -220,6 +220,28 @@ class GAnalytics {
 		#end
 	}
 
+	/**
+	* Send uncaught exception
+	*
+	* @public
+	* @param 	description : A description of the exception (up to 100 characters)
+	* @param 	fatal : Indicates whether the exception was fatal. True indicates fatal.
+	* @return	void
+	*/
+
+	static public function sendUncaughtException(description:String, fatal:Bool):Void {
+		#if (android && openfl)
+
+		if (ganalytics_sendUncaughtException_jni == null) ganalytics_sendUncaughtException_jni = JNI.createStaticMethod ("org.haxe.extension.GAnalytics", "sendUncaughtException", "(Ljava/lang/String;Z)V");
+		ganalytics_sendUncaughtException_jni(description, fatal);
+
+		#elseif ios
+
+		ganalytics_sendUncaughtException(description, fatal);
+
+		#end
+	}
+
 	// -------o protected
 
 	// -------o misc
@@ -244,6 +266,8 @@ class GAnalytics {
 	private static var ganalytics_sendSocial = Lib.load ("ganalytics", "ganalytics_sendSocial", 3);
 
 	private static var ganalytics_setUserId = Lib.load ("ganalytics", "ganalytics_setUserId", 1);
+
+	private static var ganalytics_sendUncaughtException = Lib.load ("ganalytics", "ganalytics_sendUncaughtException", 2);
 	
 	#end
 	
@@ -260,6 +284,8 @@ class GAnalytics {
 	private static var ganalytics_trackSocial_jni: Dynamic;
 
 	private static var ganalytics_setUserId_jni: Dynamic;
+
+	private static var ganalytics_sendUncaughtException_jni: Dynamic;
 	
 	#end
 	
