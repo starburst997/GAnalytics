@@ -24,7 +24,7 @@ namespace ganalytics {
 		[tracker set:kGAIScreenName value:NSScreen];
 
 		// Send a screenview.
-		[tracker send:[[GAIDictionaryBuilder createAppView]  build]];
+		[tracker send:[[GAIDictionaryBuilder createScreenView]  build]];
 	}
 
 	void setUserId(  const char *sUserId ) {
