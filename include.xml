@@ -3,10 +3,18 @@
 	
 	<ndll name="ganalytics" if="ios" />
 
-	<set name="google-play-services-basement" />
-	<set name="google-play-services-analytics-impl" />
-
-	<haxelib name="extension-googleplayservices-basement" if="android" /> 
+	<section if="android">
+		<section if="openfl-legacy || openfl-next">
+			<set name="google-play-services-basement" />
+			<set name="google-play-services-analytics-impl" />
+			<haxelib name="extension-googleplayservices-basement" />
+		</section>
+		
+		<section unless="openfl-legacy || openfl-next">
+			<set name="google-analytics" />
+			<haxelib name="google-play-services" />
+		</section>
+	</section>
 	
 	<!-- Use the following for an Android Java extension, not needed otherwise -->
 	
