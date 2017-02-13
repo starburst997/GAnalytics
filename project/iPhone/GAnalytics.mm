@@ -88,6 +88,12 @@ namespace ganalytics {
 
 	}
 
+	void sendUncaughtException( const char *description, bool fatal ){
+		NSString *NSDescription = [ [NSString alloc] initWithUTF8String:description];
+
+		[tracker send:[[GAIDictionaryBuilder createExceptionWithDescription:NSDescription withFatal:fatal ? @YES : @NO] build]];
+	}
+
 	void stopSession( ){
 		//[[GANTracker sharedTracker] stopTracker];
 	}

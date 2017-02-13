@@ -14,6 +14,7 @@ namespace ganalytics {
 	void setCustom_metric( int iIndex , int iMetric );
 	void sendTiming( const char *sCat , int iInterval , const char *sName , const char *sLabel );
 	void stopSession( );
+	void sendUncaughtException( const char *description, bool fatal );
 	
 }
 
